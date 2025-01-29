@@ -1,1 +1,5 @@
 asr-dataset
+LJSpeech-1.1
+speechbrain
+tmpdir_tts
+tmpdir_vocoder

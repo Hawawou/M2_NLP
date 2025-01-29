@@ -1,0 +1,80 @@
+{
+  "LJ001-0011": {
+    "uttid": "LJ001-0011",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0011.wav",
+    "label": "it is of the first importance that the letter used should be fine in form;",
+    "segment": false
+  },
+  "LJ001-0089": {
+    "uttid": "LJ001-0089",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0089.wav",
+    "label": "but his letters, though uninteresting and poor, are not nearly so gross and vulgar as those of either the Italian or the Frenchman.",
+    "segment": false
+  },
+  "LJ001-0086": {
+    "uttid": "LJ001-0086",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0086.wav",
+    "label": "are dazzling and unpleasant to the eye owing to the clumsy thickening and vulgar thinning of the lines:",
+    "segment": false
+  },
+  "LJ001-0005": {
+    "uttid": "LJ001-0005",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0005.wav",
+    "label": "the invention of movable metal letters in the middle of the fifteenth century may justly be considered as the invention of the art of printing.",
+    "segment": false
+  },
+  "LJ001-0075": {
+    "uttid": "LJ001-0075",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0075.wav",
+    "label": "the worst, which perhaps was the English, was a terrible falling-off from the work of the earlier presses;",
+    "segment": false
+  },
+  "LJ001-0104": {
+    "uttid": "LJ001-0104",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0104.wav",
+    "label": "Italy is contentedly stagnant.",
+    "segment": false
+  },
+  "LJ001-0123": {
+    "uttid": "LJ001-0123",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0123.wav",
+    "label": "this is awkward if you have to read Bradshaw's Guide in a hurry.",
+    "segment": false
+  },
+  "LJ001-0121": {
+    "uttid": "LJ001-0121",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0121.wav",
+    "label": "in reading the modern figures the eyes must be strained before the reader can have any reasonable assurance",
+    "segment": false
+  },
+  "LJ001-0117": {
+    "uttid": "LJ001-0117",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0117.wav",
+    "label": "which title can only be claimed by artistic practice, whether the art in it be conscious or unconscious.",
+    "segment": false
+  },
+  "LJ001-0012": {
+    "uttid": "LJ001-0012",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0012.wav",
+    "label": "especially as no more time is occupied, or cost incurred, in casting, setting, or printing beautiful letters",
+    "segment": false
+  },
+  "LJ001-0001": {
+    "uttid": "LJ001-0001",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0001.wav",
+    "label": "Printing, in the only sense with which we are at present concerned, differs from most if not from all the arts and crafts represented in the Exhibition",
+    "segment": false
+  },
+  "LJ001-0015": {
+    "uttid": "LJ001-0015",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0015.wav",
+    "label": "the forms of printed letters should be beautiful, and that their arrangement on the page should be reasonable and a help to the shapeliness of the letters themselves.",
+    "segment": false
+  },
+  "LJ001-0113": {
+    "uttid": "LJ001-0113",
+    "wav": "LJSpeech-1.1/wavs/LJ001-0113.wav",
+    "label": "there is a grossness in the upper finishings of letters like the c, the a, and so on,",
+    "segment": false
+  }
+}

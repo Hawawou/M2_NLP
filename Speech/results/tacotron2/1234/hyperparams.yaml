@@ -1,0 +1,238 @@
+# Generated 2024-12-22 from:
+# /home/oumar/School/M2_NLP/Speech/speechbrain/recipes/LJSpeech/TTS/tacotron2/hparams/train.yaml
+# yamllint disable
+############################################################################
+# Model: Tacotron2
+# Tokens: Raw characters (English text)
+# losses: Transducer
+# Training: LJSpeech
+# Authors: Georges Abous-Rjeili, Artem Ploujnikov, Yingzhi Wang
+# ############################################################################
+
+
+###################################
+# Experiment Parameters and setup #
+###################################
+seed: 1234
+__set_seed: !apply:speechbrain.utils.seed_everything [1234]
+output_folder: ./results/tacotron2/1234
+save_folder: ./results/tacotron2/1234/save
+train_log: ./results/tacotron2/1234/train_log.txt
+epochs: 750
+keep_checkpoint_interval: 50
+
+###################################
+# Progress Samples                #
+###################################
+# Progress samples are used to monitor the progress
+# of an ongoing training session by outputting samples
+# of spectrograms, alignments, etc at regular intervals
+
+# Whether to enable progress samples
+progress_samples: true
+
+# The path where the samples will be stored
+progress_sample_path: ./results/tacotron2/1234/samples
+# The interval, in epochs. For instance, if it is set to 5,
+# progress samples will be output every 5 epochs
+progress_samples_interval: 1
+# The sample size for raw batch samples saved in batch.pth
+# (useful mostly for model debugging)
+progress_batch_sample_size: 3
+
+#################################
+# Data files and pre-processing #
+#################################
+data_folder: LJSpeech-1.1
+                          # e.g, /localscratch/ljspeech
+
+train_json: ./results/tacotron2/1234/save/train.json
+valid_json: ./results/tacotron2/1234/save/valid.json
+test_json: ./results/tacotron2/1234/save/test.json
+
+splits: [train, valid]
+split_ratio: [90, 10]
+
+skip_prep: false
+
+# Use the original preprocessing from nvidia
+# The cleaners to be used (applicable to nvidia only)
+text_cleaners: [english_cleaners]
+
+################################
+# Audio Parameters             #
+################################
+sample_rate: 22050
+hop_length: 256
+win_length: 1024
+n_mel_channels: 80
+n_fft: 1024
+mel_fmin: 0.0
+mel_fmax: 8000.0
+mel_normalized: false
+power: 1
+norm: slaney
+mel_scale: slaney
+dynamic_range_compression: true
+
+################################
+# Optimization Hyperparameters #
+################################
+learning_rate: 0.001
+weight_decay: 0.000006
+batch_size: 64 #minimum 2
+num_workers: 8
+mask_padding: true
+guided_attention_sigma: 0.2
+guided_attention_weight: 50.0
+guided_attention_weight_half_life: 10.
+guided_attention_hard_stop: 50
+gate_loss_weight: 1.0
+
+train_dataloader_opts:
+  batch_size: 64
+  drop_last: false  #True #False
+  num_workers: 8
+  collate_fn: !new:speechbrain.lobes.models.Tacotron2.TextMelCollate
+
+valid_dataloader_opts:
+  batch_size: 64
+  num_workers: 8
+  collate_fn: !new:speechbrain.lobes.models.Tacotron2.TextMelCollate
+
+test_dataloader_opts:
+  batch_size: 64
+  num_workers: 8
+  collate_fn: !new:speechbrain.lobes.models.Tacotron2.TextMelCollate
+
+################################
+# Model Parameters and model   #
+################################
+n_symbols: 148 #fixed depending on symbols in textToSequence
+symbols_embedding_dim: 512
+
+# Encoder parameters
+encoder_kernel_size: 5
+encoder_n_convolutions: 3
+encoder_embedding_dim: 512
+
+# Decoder parameters
+# The number of frames in the target per encoder step
+n_frames_per_step: 1
+decoder_rnn_dim: 1024
+prenet_dim: 256
+max_decoder_steps: 1000
+gate_threshold: 0.5
+p_attention_dropout: 0.1
+p_decoder_dropout: 0.1
+decoder_no_early_stopping: false
+
+# Attention parameters
+attention_rnn_dim: 1024
+attention_dim: 128
+
+# Location Layer parameters
+attention_location_n_filters: 32
+attention_location_kernel_size: 31
+
+# Mel-post processing network parameters
+postnet_embedding_dim: 512
+postnet_kernel_size: 5
+postnet_n_convolutions: 5
+
+mel_spectogram: !name:speechbrain.lobes.models.Tacotron2.mel_spectogram
+  sample_rate: 22050
+  hop_length: 256
+  win_length: 1024
+  n_fft: 1024
+  n_mels: 80
+  f_min: 0.0
+  f_max: 8000.0
+  power: 1
+  normalized: false
+  norm: slaney
+  mel_scale: slaney
+  compression: true
+
+#model
+model: &id002 !new:speechbrain.lobes.models.Tacotron2.Tacotron2
+
+#optimizer
+  mask_padding: true
+  n_mel_channels: 80
+  # symbols
+  n_symbols: 148
+  symbols_embedding_dim: 512
+  # encoder
+  encoder_kernel_size: 5
+  encoder_n_convolutions: 3
+  encoder_embedding_dim: 512
+  # attention
+  attention_rnn_dim: 1024
+  attention_dim: 128
+  # attention location
+  attention_location_n_filters: 32
+  attention_location_kernel_size: 31
+  # decoder
+  n_frames_per_step: 1
+  decoder_rnn_dim: 1024
+  prenet_dim: 256
+  max_decoder_steps: 1000
+  gate_threshold: 0.5
+  p_attention_dropout: 0.1
+  p_decoder_dropout: 0.1
+  # postnet
+  postnet_embedding_dim: 512
+  postnet_kernel_size: 5
+  postnet_n_convolutions: 5
+  decoder_no_early_stopping: false
+
+guided_attention_scheduler: &id001 !new:speechbrain.nnet.schedulers.StepScheduler
+  initial_value: 50.0
+  half_life: 10.
+
+criterion: !new:speechbrain.lobes.models.Tacotron2.Loss
+  gate_loss_weight: 1.0
+  guided_attention_weight: 50.0
+  guided_attention_sigma: 0.2
+  guided_attention_scheduler: *id001
+  guided_attention_hard_stop: 50
+
+modules:
+  model: *id002
+opt_class: !name:torch.optim.Adam
+  lr: 0.001
+  weight_decay: 0.000006
+
+#epoch object
+epoch_counter: &id003 !new:speechbrain.utils.epoch_loop.EpochCounter
+  limit: 750
+
+train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
+  save_file: ./results/tacotron2/1234/train_log.txt
+
+#annealing_function
+lr_annealing: &id004 !new:speechbrain.nnet.schedulers.IntervalScheduler
+
+#infer: !name:speechbrain.lobes.models.Tacotron2.infer
+
+  intervals:
+  - steps: 6000
+    lr: 0.0005
+  - steps: 8000
+    lr: 0.0003
+  - steps: 10000
+    lr: 0.0001
+
+#checkpointer
+checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
+  checkpoints_dir: ./results/tacotron2/1234/save
+  recoverables:
+    model: *id002
+    counter: *id003
+    scheduler: *id004
+progress_sample_logger: !new:speechbrain.utils.train_logger.ProgressSampleLogger
+  output_path: ./results/tacotron2/1234/samples
+  batch_sample_size: 3
+  formats:
+    raw_batch: raw
